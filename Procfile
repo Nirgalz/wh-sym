@@ -1,1 +1,1 @@
-'web: wh-sym public/'
+'web: heroku-php-apache2 public/'
