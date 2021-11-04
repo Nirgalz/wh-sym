@@ -28,7 +28,7 @@
         "vue2-leaflet-geosearch": "^1.0.6"
     },
     "engines": {
-        "node": "14.14.0",
+        "node": "12.16.1",
         "npm" : "6.x"
     }
 }
