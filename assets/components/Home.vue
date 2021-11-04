@@ -1,7 +1,8 @@
 <template>
   <div>
+    <top-menu></top-menu>
     <v-alert
-        type="success"
+        type="info"
     >{{ message }}</v-alert>
     <LeafletMap></LeafletMap>
   </div>
@@ -9,11 +10,13 @@
 
 <script>
 import LeafletMap from "./LeafletMap";
+import TopMenu from "./TopMenu";
 
 export default {
   name: 'Home',
   props: {},
   components: {
+    TopMenu,
     LeafletMap
   },
   data: () => ({
