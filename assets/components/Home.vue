@@ -1,6 +1,5 @@
 <template>
   <div>
-    <top-menu></top-menu>
     <v-alert
         type="info"
     >{{ message }}</v-alert>
