@@ -23,6 +23,8 @@ import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-geosearch/dist/geosearch.css';
 import { Icon } from 'leaflet';
+import AddElement from "./components/AddElement";
+import MyElements from "./components/MyElements";
 
 delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
@@ -36,12 +38,14 @@ Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 const routes = [
-    { path: '/', component: Home, name: 'home' }
+    { path: '/', component: Home, name: 'home' },
+    { path: '/add', component: AddElement, name: 'add' },
+    { path: '/my-elements', component: MyElements, name: 'myElements' }
 ]
 
 const router = new VueRouter({
     mode: 'history',
-    base: '/app/',
+    base: '/',
     routes
 })
 

@@ -3,12 +3,12 @@
     <div style="height: 200px; overflow: auto;">
       <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>
       <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
-      <button @click="showLongText">
+      <v-btn @click="showLongText">
         Toggle long popup
-      </button>
-      <button @click="showMap = !showMap">
+      </v-btn>
+      <v-btn @click="showMap = !showMap">
         Toggle map
-      </button>
+      </v-btn>
     </div>
     <l-map
         v-if="showMap"
