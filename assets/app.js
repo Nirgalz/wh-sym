@@ -39,13 +39,13 @@ Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
 const routes = [
     { path: '/', component: Home, name: 'home' },
-    { path: '/add', component: AddElement, name: 'add' },
+    { path: '/create', component: AddElement, name: 'add' },
     { path: '/my-elements', component: MyElements, name: 'myElements' }
 ]
 
 const router = new VueRouter({
     mode: 'history',
-    base: '/',
+    base: '/app/',
     routes
 })
 

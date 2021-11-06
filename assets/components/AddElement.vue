@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "AddElement",
   data: () => ({
@@ -72,7 +73,18 @@ export default {
   }),
   methods: {
     validate() {
-      this.$refs.form.validate()
+      if (this.$refs.form.validate()) {
+        axios.post('/elements/create', {name : this.name})
+            .then((res) => {
+              console.log(res)
+            })
+            .catch((error) => {
+              console.log(error)
+            }).finally(() => {
+          //Perform action in always
+        });
+      }
+
     },
     reset() {
       this.$refs.form.reset()
