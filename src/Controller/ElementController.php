@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Element;
+use Cassandra\Date;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,7 @@ class ElementController extends AbstractController
      * @param Request $request
      * @return Response
      * @throws \ErrorException
+     * @throws \Exception
      */
     public function createElement(Request $request): Response
     {
@@ -24,6 +26,8 @@ class ElementController extends AbstractController
 
             $element = new Element();
             $element->setName($data["name"]);
+            $element->setStartDate(new \DateTime($data["startDate"]));
+            $element->setEndDate(new \DateTime($data["endDate"]));
             $entityManager->persist($element);
             $entityManager->flush();
 

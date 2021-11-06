@@ -22,6 +22,10 @@
       </v-card>
       <v-card>
         <v-card-title>When ?</v-card-title>
+        <v-card-actions>
+          <v-datetime-picker label="Date and time of the beginning of the event" v-model="startDate"> </v-datetime-picker>
+          <v-datetime-picker label="Date and time of the end of the event" v-model="endDate"> </v-datetime-picker>
+        </v-card-actions>
       </v-card>
       <v-card>
         <v-card-title>Where ?</v-card-title>
@@ -53,6 +57,8 @@ export default {
   data: () => ({
     valid: true,
     name: '',
+    startDate: '',
+    endDate: '',
     nameRules: [
       v => !!v || 'Name is required',
       v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -74,7 +80,12 @@ export default {
   methods: {
     validate() {
       if (this.$refs.form.validate()) {
-        axios.post('/elements/create', {name : this.name})
+        let data = {
+          name : this.name,
+          startDate : this.startDate,
+          endDate: this.endDate
+        }
+        axios.post('/elements/create', data)
             .then((res) => {
               console.log(res)
             })

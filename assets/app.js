@@ -25,6 +25,7 @@ import 'leaflet-geosearch/dist/geosearch.css';
 import { Icon } from 'leaflet';
 import AddElement from "./components/AddElement";
 import MyElements from "./components/MyElements";
+import DatetimePicker from 'vuetify-datetime-picker'
 
 delete Icon.Default.prototype._getIconUrl;
 Icon.Default.mergeOptions({
@@ -37,6 +38,7 @@ Icon.Default.mergeOptions({
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
+Vue.use(DatetimePicker);
 const routes = [
     { path: '/', component: Home, name: 'home' },
     { path: '/create', component: AddElement, name: 'add' },
