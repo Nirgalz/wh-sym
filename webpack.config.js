@@ -58,6 +58,8 @@ Encore
     // Enable Vue loader
     .enableVueLoader()
 
+    .enableStylusLoader()
+
     // enables Sass/SCSS support
     //.enableSassLoader()
 

@@ -23,12 +23,19 @@
       <v-card>
         <v-card-title>When ?</v-card-title>
         <v-card-actions>
-          <v-datetime-picker label="Date and time of the beginning of the event" v-model="startDate"> </v-datetime-picker>
-          <v-datetime-picker label="Date and time of the end of the event" v-model="endDate"> </v-datetime-picker>
+          <v-datetime-picker
+              label="Date and time of the beginning of the event"
+              v-model="startDate"
+          >
+          </v-datetime-picker>
+          <v-datetime-picker label="Date and time of the end of the event" v-model="endDate"></v-datetime-picker>
         </v-card-actions>
       </v-card>
       <v-card>
         <v-card-title>Where ?</v-card-title>
+        <v-card-actions>
+          <LeafletMap></LeafletMap>
+        </v-card-actions>
       </v-card>
       <v-btn
           :disabled="!valid"
@@ -52,8 +59,13 @@
 
 <script>
 import axios from 'axios';
+import LeafletMap from "./LeafletMap";
+
 export default {
   name: "AddElement",
+  components: {
+    LeafletMap
+  },
   data: () => ({
     valid: true,
     name: '',
@@ -81,8 +93,8 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         let data = {
-          name : this.name,
-          startDate : this.startDate,
+          name: this.name,
+          startDate: this.startDate,
           endDate: this.endDate
         }
         axios.post('/elements/create', data)

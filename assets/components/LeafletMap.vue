@@ -1,15 +1,5 @@
 <template>
   <div style="height: 500px; width: 100%">
-    <div style="height: 200px; overflow: auto;">
-      <p>First marker is placed at {{ withPopup.lat }}, {{ withPopup.lng }}</p>
-      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
-      <v-btn @click="showLongText">
-        Toggle long popup
-      </v-btn>
-      <v-btn @click="showMap = !showMap">
-        Toggle map
-      </v-btn>
-    </div>
     <l-map
         v-if="showMap"
         :zoom="zoom"
