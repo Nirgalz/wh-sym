@@ -81,11 +81,11 @@ export default {
           icon: new L.Icon.Default(),
           draggable: true,
         },
-        provider: new OpenStreetMapProvider(new OpenStreetMapProvider({
+        provider: new OpenStreetMapProvider({
           params: {
             email: 'znirgal@gmail.com', // auth for large number of requests
           },
-        })),
+        }),
         style: 'bar',
       },
     };
@@ -102,9 +102,21 @@ export default {
     },
     innerClick() {
       alert("Click!");
+    },
+    async resultListener() {
+      const form = document.querySelector('form');
+      const input = form.querySelector('input[type="text"]');
+      const results = await this.geosearchOptions.provider.search({query: input.value}).then(function (result) {
+        console.log(result); // » [{}, {}, {}, ...]
+      });
+      console.log(results);
     }
+  },
+  mounted() {
+   this.resultListener();
   }
 }
+
 </script>
 
 <style>
