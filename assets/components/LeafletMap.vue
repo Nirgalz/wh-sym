@@ -1,5 +1,6 @@
 <template>
   <div style="height: 500px; width: 100%">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@2.6.0/assets/css/leaflet.css">
     <l-map
         v-if="showMap"
         :zoom="zoom"
@@ -13,7 +14,7 @@
           :url="url"
           :attribution="attribution"
       />
-      <v-geosearch :options="geosearchOptions" ></v-geosearch>
+      <v-geosearch :options="geosearchOptions"></v-geosearch>
       <l-marker :lat-lng="withPopup">
         <l-popup>
           <div @click="innerClick">
@@ -45,7 +46,7 @@
 <script>
 import {latLng} from "leaflet";
 import {LMap, LTileLayer, LMarker, LPopup, LTooltip} from "vue2-leaflet";
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import {OpenStreetMapProvider} from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch';
 
 export default {
@@ -75,11 +76,17 @@ export default {
       },
       showMap: true,
       geosearchOptions: {
+        marker: {
+          // optional: L.Marker    - default L.Icon.Default
+          icon: new L.Icon.Default(),
+          draggable: true,
+        },
         provider: new OpenStreetMapProvider(new OpenStreetMapProvider({
           params: {
             email: 'znirgal@gmail.com', // auth for large number of requests
           },
         })),
+        style: 'bar',
       },
     };
   },
@@ -99,3 +106,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.leaflet-control-geosearch {
+    color: black !important;
+}
+</style>
