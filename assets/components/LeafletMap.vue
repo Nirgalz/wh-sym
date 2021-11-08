@@ -2,6 +2,7 @@
   <div style="height: 500px; width: 100%">
     <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@2.6.0/assets/css/leaflet.css">
     <l-map
+        ref="map"
         v-if="showMap"
         :zoom="zoom"
         :center="center"
@@ -61,6 +62,7 @@ export default {
   },
   data() {
     return {
+      address: {},
       zoom: 13,
       center: latLng(47.41322, -1.219482),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -86,6 +88,7 @@ export default {
             email: 'znirgal@gmail.com', // auth for large number of requests
           },
         }),
+        autoClose: true,
         style: 'bar',
       },
     };
@@ -102,18 +105,14 @@ export default {
     },
     innerClick() {
       alert("Click!");
-    },
-    async resultListener() {
-      const form = document.querySelector('form');
-      const input = form.querySelector('input[type="text"]');
-      const results = await this.geosearchOptions.provider.search({query: input.value}).then(function (result) {
-        console.log(result); // » [{}, {}, {}, ...]
-      });
-      console.log(results);
     }
   },
   mounted() {
-   this.resultListener();
+    console.log(this.$refs);
+    this.$refs.map.mapObject.on("geosearch/showlocation", response => {
+      console.log(response);
+      this.address = response.location.label;
+    });
   }
 }
 
