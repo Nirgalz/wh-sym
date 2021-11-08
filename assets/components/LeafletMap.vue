@@ -1,6 +1,9 @@
 <template>
   <div style="height: 500px; width: 100%">
     <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@2.6.0/assets/css/leaflet.css">
+    <p>lat : {{targetMarker.lat}}</p>
+    <p>lng : {{targetMarker.lng}}</p>
+    <p>searched Result : {{targetMarker.searchedResult}}</p>
     <l-map
         ref="map"
         v-if="showMap"
@@ -45,13 +48,13 @@
 </template>
 
 <script>
-import {latLng} from "leaflet";
+import L from "leaflet";
 import {LMap, LTileLayer, LMarker, LPopup, LTooltip} from "vue2-leaflet";
 import {OpenStreetMapProvider} from 'leaflet-geosearch';
 import VGeosearch from 'vue2-leaflet-geosearch';
 
 export default {
-  name: "Example",
+  name: "CreateMap",
   components: {
     LMap,
     LTileLayer,
@@ -62,16 +65,15 @@ export default {
   },
   data() {
     return {
-      address: {},
       zoom: 13,
-      center: latLng(47.41322, -1.219482),
+      center: L.latLng(47.41322, -1.219482),
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
           '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-      withPopup: latLng(47.41322, -1.219482),
-      withTooltip: latLng(47.41422, -1.250482),
+      withPopup: L.latLng(47.41322, -1.219482),
+      withTooltip: L.latLng(47.41422, -1.250482),
       currentZoom: 11.5,
-      currentCenter: latLng(47.41322, -1.219482),
+      currentCenter: L.latLng(47.41322, -1.219482),
       showParagraph: false,
       mapOptions: {
         zoomSnap: 0.5
@@ -91,6 +93,7 @@ export default {
         autoClose: true,
         style: 'bar',
       },
+      targetMarker: {lat : 0, lng: 0, searchedResult : ''},
     };
   },
   methods: {
@@ -108,10 +111,15 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$refs);
     this.$refs.map.mapObject.on("geosearch/showlocation", response => {
-      console.log(response);
-      this.address = response.location.label;
+      let marker = L.marker(L.latLng(response.location.y, response.location.x), {draggable: true}).addTo(this.$refs.map.mapObject);
+      this.targetMarker.lat = marker.getLatLng().lat;
+      this.targetMarker.lng = marker.getLatLng().lng;
+      this.targetMarker.searchedResult = response.location.label;
+      marker.on('move', () => {
+        this.targetMarker.lat = marker.getLatLng().lat;
+        this.targetMarker.lng = marker.getLatLng().lng;
+      })
     });
   }
 }
